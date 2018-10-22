@@ -73,3 +73,8 @@ The script performs the following steps:
   * DN: `cn=administrator,ou=groups,ou=dev,dc=apache,dc=org`
   * Members: `admin`
 
+### Credit
+The setup script is based off of the scripts created by Yusaku Sako (u39kun) in 
+[ambari-util](https://github.com/u39kun/ambari-util) repo. 
+See https://github.com/u39kun/ambari-util/tree/master/ldap.
+ 
