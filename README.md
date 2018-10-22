@@ -43,11 +43,11 @@ The script performs the following steps:
 * Creates the initial directory with users and groups (see user_groups.ldif)
 
 ## Users and Groups
-**The LDAP server administrator**
+#### The LDAP server administrator
 * DN: `cn=ldap_admin,dc=apache,dc=org`
 * Password: `yoursecretpassword`
 
-**The users**
+#### The users
 * Admin
   * DN: `uid=admin,ou=people,ou=dev,dc=apache,dc=org`
   * Username: `admin`
@@ -65,7 +65,7 @@ The script performs the following steps:
   * Username: `tom`
   * Password: `tom-password`
   
-**The groups**
+#### The groups
 * User
   * DN: `cn=user,ou=groups,ou=dev,dc=apache,dc=org`
   * Members: `admin`, `sam`, `tom`
@@ -73,7 +73,7 @@ The script performs the following steps:
   * DN: `cn=administrator,ou=groups,ou=dev,dc=apache,dc=org`
   * Members: `admin`
 
-### Customization
+## Customization
 The base DN (`dc=apache,dc=org`), LDAP administrator username (`ldap_admin`), and LDAP 
 administrator password (`yoursecretpassword`) may be changed by editing 
 `setup_ldap_test_server.sh` and changing the desired variables before executing it:
@@ -85,7 +85,7 @@ LDAP_ADMIN_NAME='ldap_admin'
 LDAP_ADMIN_PASSWORD='yoursecretpassword'
 ```
 
-### Credit
+## Credit
 The setup script is based off of the scripts created by Yusaku Sako (u39kun) in 
 [ambari-util](https://github.com/u39kun/ambari-util) repo. 
 See https://github.com/u39kun/ambari-util/tree/master/ldap.
