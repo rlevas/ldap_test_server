@@ -1,3 +1,7 @@
+# ########################################################################################
+# Credit: Most of this setup script came from Yusaku Sako (u39kun).
+#         See https://github.com/u39kun/ambari-util/blob/master/ldap/setup-ldap-server.sh.
+# ########################################################################################
 yum clean all
 
 yum install openldap-servers openldap-clients -y
