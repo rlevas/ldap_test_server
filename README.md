@@ -73,6 +73,18 @@ The script performs the following steps:
   * DN: `cn=administrator,ou=groups,ou=dev,dc=apache,dc=org`
   * Members: `admin`
 
+### Customization
+The base DN (`dc=apache,dc=org`), LDAP administrator username (`ldap_admin`), and LDAP 
+administrator password (`yoursecretpassword`) may be changed by editing 
+`setup_ldap_test_server.sh` and changing the desired variables before executing it:
+
+```
+BASE_DN='dc=apache,dc=org'
+...
+LDAP_ADMIN_NAME='ldap_admin'
+LDAP_ADMIN_PASSWORD='yoursecretpassword'
+```
+
 ### Credit
 The setup script is based off of the scripts created by Yusaku Sako (u39kun) in 
 [ambari-util](https://github.com/u39kun/ambari-util) repo. 
