@@ -1,21 +1,39 @@
+#!/bin/bash
 # ########################################################################################
 # Credit: Most of this setup script came from Yusaku Sako (u39kun).
 #         See https://github.com/u39kun/ambari-util/blob/master/ldap/setup-ldap-server.sh.
 # ########################################################################################
-yum clean all
 
+yum clean all
 yum install openldap-servers openldap-clients -y
 
-BASE_DN='dc=apache,dc=org'
-LDAP_SERVER=`hostname -f`
 CWD=`pwd`
 OPENLDAP_CONFIG_DIR='/etc/openldap'
 OPENLDAP_RUN_DIR='/var/run/openldap'
 OPENLDAP_LIB_DIR='/var/lib/ldap'
 OPENLDAP_SLAPPASSWD='/sbin/slappasswd'
+LDAP_SERVER=`hostname -f`
 LDAP_ADMIN_NAME='ldap_admin'
 LDAP_ADMIN_PASSWORD='yoursecretpassword'
 LDAP_ADMIN_PASSWORD_HASH=`${OPENLDAP_SLAPPASSWD} -s ${LDAP_ADMIN_PASSWORD}`
+BASE_DN='dc=apache,dc=org'
+
+prompt_user()
+{
+	value=""
+    until [ ! -z  ${value} ]; do
+		echo -n "${1}"
+		if [ ! -z ${2} ]; then
+			echo -n " (${2})"
+		fi
+		echo -n ": "
+		read value
+
+		if [ -z ${value} ]; then
+        	value=${2}
+		fi
+	done
+}
 
 replace_variables()
 {
@@ -29,11 +47,22 @@ replace_variables()
 	sed -i "s:LDAP_ADMIN_PASSWORD:${LDAP_ADMIN_PASSWORD}:" ${1}
 }
 
+echo "##################################"
+echo "Installation Options"
+echo "##################################"
+prompt_user "LDAP Server administrator username" ${LDAP_ADMIN_NAME}
+LDAP_ADMIN_NAME=${value}
+
+prompt_user "LDAP Server administrator password" ${LDAP_ADMIN_PASSWORD}
+LDAP_ADMIN_PASSWORD=${value}
+LDAP_ADMIN_PASSWORD_HASH=`${OPENLDAP_SLAPPASSWD} -s ${LDAP_ADMIN_PASSWORD}`
+
+echo "##################################"
+echo "Setting up LDAP server"
+echo "##################################"
 cp /usr/share/openldap-servers/DB_CONFIG.example ${OPENLDAP_LIB_DIR}/DB_CONFIG
 
 chown -R ldap:ldap ${OPENLDAP_LIB_DIR}
-
-# cd /etc/openldap
 
 mv ${OPENLDAP_CONFIG_DIR}/slapd.d ${OPENLDAP_CONFIG_DIR}/slapd.d.original
 
